@@ -6,10 +6,10 @@
 
     <groupId>io.github.eggy03</groupId>
     <artifactId>PaperTrailSdk</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <project.name>papertrail-sdk</project.name>
@@ -30,7 +30,7 @@
 
         <!-- dependencies version -->
         <springboot.restclient.version>4.0.0</springboot.restclient.version>
-        <vavr.version>0.10.7</vavr.version>
+        <vavr.version>0.11.0</vavr.version>
         <lombok.version>1.18.42</lombok.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
         <junit.jupiter.engine.version>6.0.0</junit.jupiter.engine.version>
@@ -44,7 +44,7 @@
         <build.helper.maven.plugin.version>3.6.1</build.helper.maven.plugin.version>
         <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
         <sign.maven.plugin.version>1.1.0</sign.maven.plugin.version>
-        <central.publishing.maven.plugin.version>0.9.0</central.publishing.maven.plugin.version>
+        <central.publishing.maven.plugin.version>0.10.0</central.publishing.maven.plugin.version>
         <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
         <slf4j.api.version>2.0.17</slf4j.api.version>
     </properties>
