@@ -30,6 +30,7 @@
 
         <!-- dependencies version -->
         <spring.web.version>7.0.3</spring.web.version>
+        <jackson.annotations.version>2.21</jackson.annotations.version>
         <vavr.version>0.11.0</vavr.version>
         <lombok.version>1.18.42</lombok.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
@@ -54,6 +55,12 @@
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
             <version>${vavr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.annotations.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

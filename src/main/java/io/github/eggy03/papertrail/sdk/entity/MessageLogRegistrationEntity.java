@@ -1,18 +1,26 @@
 package io.github.eggy03.papertrail.sdk.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
+@Getter
+@Builder(toBuilder = true)
 public class MessageLogRegistrationEntity {
 
     @NotNull
-    private String guildId;
+    private final String guildId;
 
     @NotNull
-    private String channelId;
+    private final String channelId;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public MessageLogRegistrationEntity(@JsonProperty("guildId") @NonNull String guildId, @JsonProperty("channelId") @NonNull String channelId) {
+        this.guildId=guildId;
+        this.channelId=channelId;
+    }
 }
