@@ -2,10 +2,10 @@ package io.github.eggy03.papertrail.sdk.client;
 
 import io.github.eggy03.papertrail.sdk.entity.AuditLogRegistrationEntity;
 import io.github.eggy03.papertrail.sdk.entity.ErrorEntity;
+import io.github.eggy03.papertrail.sdk.exception.ApiBaseUrlException;
 import io.github.eggy03.papertrail.sdk.http.HttpServiceEngine;
 import io.vavr.control.Either;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
@@ -14,11 +14,17 @@ import org.springframework.http.MediaType;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Slf4j
 public class AuditLogRegistrationClient {
 
     private final String baseUrl;
+
+    public AuditLogRegistrationClient(String baseUrl){
+        if(baseUrl==null || baseUrl.trim().isEmpty())
+            throw new ApiBaseUrlException("Base URL is null or empty");
+
+        this.baseUrl = baseUrl;
+    }
 
     public boolean registerGuild(@NonNull String guildId, @NonNull String channelId) {
 
