@@ -29,7 +29,7 @@
         <sonar.organization>eggy03</sonar.organization>
 
         <!-- dependencies version -->
-        <springboot.restclient.version>4.0.0</springboot.restclient.version>
+        <spring.web.version>7.0.3</spring.web.version>
         <vavr.version>0.11.0</vavr.version>
         <lombok.version>1.18.42</lombok.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
@@ -56,9 +56,9 @@
             <version>${vavr.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-restclient</artifactId>
-            <version>${springboot.restclient.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.web.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
