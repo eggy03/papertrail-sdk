@@ -6,7 +6,7 @@
 
     <groupId>io.github.eggy03</groupId>
     <artifactId>papertrail-sdk</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
@@ -34,7 +34,7 @@
         <vavr.version>0.11.0</vavr.version>
         <lombok.version>1.18.42</lombok.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
-        <junit.jupiter.engine.version>6.0.0</junit.jupiter.engine.version>
+        <junit.jupiter.version>6.0.0</junit.jupiter.version>
         <mockito.core.version>5.20.0</mockito.core.version>
         <assertj.core.version>3.27.7</assertj.core.version>
 
@@ -86,7 +86,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.engine.version}</version>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

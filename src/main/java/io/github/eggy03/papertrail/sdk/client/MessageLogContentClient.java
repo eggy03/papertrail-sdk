@@ -6,7 +6,6 @@ import io.github.eggy03.papertrail.sdk.exception.ApiBaseUrlException;
 import io.github.eggy03.papertrail.sdk.http.HttpServiceEngine;
 import io.vavr.control.Either;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
@@ -40,11 +39,11 @@ public class MessageLogContentClient {
      * Logs a new message's content.
      *
      * @param messageId      the Discord message ID (must not be {@code null})
-     * @param messageContent the content of the message (may be {@code null} or empty if redacted)
+     * @param messageContent the content of the message (must not be {@code null} but may be empty)
      * @param authorId       the Discord user ID of the message author (must not be {@code null})
      * @return {@code true} if the message was logged successfully, {@code false} otherwise
      */
-    public boolean logMessage(@NonNull String messageId, String messageContent, @NonNull String authorId) {
+    public boolean logMessage(@NonNull String messageId, @NonNull String messageContent, @NonNull String authorId) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
