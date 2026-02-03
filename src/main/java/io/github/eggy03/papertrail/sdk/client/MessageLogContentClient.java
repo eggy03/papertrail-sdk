@@ -2,10 +2,10 @@ package io.github.eggy03.papertrail.sdk.client;
 
 import io.github.eggy03.papertrail.sdk.entity.ErrorEntity;
 import io.github.eggy03.papertrail.sdk.entity.MessageLogContentEntity;
+import io.github.eggy03.papertrail.sdk.exception.ApiBaseUrlException;
 import io.github.eggy03.papertrail.sdk.http.HttpServiceEngine;
 import io.vavr.control.Either;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
@@ -17,21 +17,33 @@ import java.util.Optional;
 /**
  * Client for managing stored message content via the PaperTrail API.
  */
-@RequiredArgsConstructor
 @Slf4j
 public class MessageLogContentClient {
 
     private final String baseUrl;
 
     /**
+     * Creates a new {@code MessageLogContentClient}.
+     *
+     * @param baseUrl the base URL of the PaperTrail API (must not be {@code null} or blank)
+     * @throws ApiBaseUrlException if the base URL is {@code null} or empty
+     */
+    public MessageLogContentClient(String baseUrl){
+        if(baseUrl==null || baseUrl.trim().isEmpty())
+            throw new ApiBaseUrlException("Base URL is null or empty");
+
+        this.baseUrl = baseUrl;
+    }
+
+    /**
      * Logs a new message's content.
      *
      * @param messageId      the Discord message ID (must not be {@code null})
-     * @param messageContent the content of the message (may be {@code null} or empty if redacted)
+     * @param messageContent the content of the message (must not be {@code null} but may be empty)
      * @param authorId       the Discord user ID of the message author (must not be {@code null})
      * @return {@code true} if the message was logged successfully, {@code false} otherwise
      */
-    public boolean logMessage(@NonNull String messageId, String messageContent, @NonNull String authorId) {
+    public boolean logMessage(@NonNull String messageId, @NonNull String messageContent, @NonNull String authorId) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
