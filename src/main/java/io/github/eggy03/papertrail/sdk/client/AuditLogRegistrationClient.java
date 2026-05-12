@@ -35,7 +35,7 @@ public class AuditLogRegistrationClient {
     /**
      * Mostly for testing purposes
      */
-    public AuditLogRegistrationClient (@NonNull HttpServiceEngine httpServiceEngine){
+    AuditLogRegistrationClient (@NonNull HttpServiceEngine httpServiceEngine){
         this.engine = httpServiceEngine;
     }
 

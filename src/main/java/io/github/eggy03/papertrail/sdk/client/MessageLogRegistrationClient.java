@@ -32,7 +32,7 @@ public class MessageLogRegistrationClient {
     /**
      * Mostly for testing purposes
      */
-    public MessageLogRegistrationClient (@NonNull HttpServiceEngine httpServiceEngine){
+    MessageLogRegistrationClient (@NonNull HttpServiceEngine httpServiceEngine){
         this.engine = httpServiceEngine;
     }
 

@@ -35,7 +35,7 @@ public class MessageLogContentClient {
     /**
      * Mostly for testing purposes
      */
-    public MessageLogContentClient (@NonNull HttpServiceEngine httpServiceEngine){
+    MessageLogContentClient (@NonNull HttpServiceEngine httpServiceEngine){
         this.engine = httpServiceEngine;
     }
 
