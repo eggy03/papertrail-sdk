@@ -2,41 +2,45 @@ package io.github.eggy03.papertrail.sdk.client;
 
 import io.github.eggy03.papertrail.sdk.entity.ErrorEntity;
 import io.github.eggy03.papertrail.sdk.entity.MessageLogContentEntity;
-import io.github.eggy03.papertrail.sdk.exception.ApiBaseUrlException;
 import io.github.eggy03.papertrail.sdk.http.HttpServiceEngine;
 import io.vavr.control.Either;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Client for managing stored message content via the PaperTrail API.
  */
-@Slf4j
-public class MessageLogContentClient {
+public final class MessageLogContentClient {
+
+    private static final Logger log = LoggerFactory.getLogger(MessageLogContentClient.class);
 
     private final HttpServiceEngine engine;
 
     /**
-     * Creates a new {@code MessageLogContentClient}.
+     * Creates a new {@code MessageLogContentClient} using the specified API base URL.
      *
-     * @param baseUrl the base URL of the PaperTrail API (must not be {@code null} or blank)
-     * @throws ApiBaseUrlException if the base URL is {@code null} or empty
+     * @param baseUrl the base URL of the API; must not be {@code null}
+     * @throws NullPointerException if {@code baseUrl} is {@code null}
      */
     public MessageLogContentClient(@NonNull String baseUrl){
-        this(new HttpServiceEngine(baseUrl));
+        this(new HttpServiceEngine(Objects.requireNonNull(baseUrl, "baseUrl cannot be null")));
     }
 
     /**
-     * Mostly for testing purposes
+     * Creates a new {@code MessageLogContentClient} using the provided HTTP service engine.
+     *
+     * @param httpServiceEngine the HTTP service engine to use; must not be {@code null}
+     * @throws NullPointerException if {@code httpServiceEngine} is {@code null}
      */
     MessageLogContentClient (@NonNull HttpServiceEngine httpServiceEngine){
-        this.engine = httpServiceEngine;
+        this.engine = Objects.requireNonNull(httpServiceEngine, "httpServiceEngine cannot be null");
     }
 
     /**
@@ -48,6 +52,10 @@ public class MessageLogContentClient {
      * @return {@code true} if the message was logged successfully, {@code false} otherwise
      */
     public boolean logMessage(@NonNull String messageId, @NonNull String messageContent, @NonNull String authorId) {
+
+        Objects.requireNonNull(messageId, "messageId cannot be null");
+        Objects.requireNonNull(messageContent, "messageContent cannot be null");
+        Objects.requireNonNull(authorId, "authorId cannot be null");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -72,8 +80,9 @@ public class MessageLogContentClient {
      * @param messageId the Discord message ID (must not be {@code null})
      * @return an {@link Optional} containing the message content if found, or empty if not present
      */
-    @NotNull
     public Optional<MessageLogContentEntity> retrieveMessage (@NonNull String messageId) {
+
+        Objects.requireNonNull(messageId, "messageId cannot be null");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -102,6 +111,10 @@ public class MessageLogContentClient {
      */
     public boolean updateMessage (@NonNull String messageId, @NonNull String messageContent, @NonNull String authorId) {
 
+        Objects.requireNonNull(messageId, "messageId cannot be null");
+        Objects.requireNonNull(messageContent, "messageContent cannot be null");
+        Objects.requireNonNull(authorId, "authorId cannot be null");
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -125,6 +138,8 @@ public class MessageLogContentClient {
      * @return {@code true} if the deletion succeeded, {@code false} otherwise
      */
     public boolean deleteMessage (@NonNull String messageId) {
+
+        Objects.requireNonNull(messageId, "messageId cannot be null");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -66,7 +66,7 @@ class AuditLogRegistrationClientTest {
     @Test
     void registerGuild_error() {
 
-        ErrorEntity errorBody = ErrorEntity.builder().build();
+        ErrorEntity errorBody = new ErrorEntity(0, "", "", "", "");
 
         when(mockEngine.makeRequestWithBody(
                 eq(HttpMethod.POST),
@@ -99,7 +99,7 @@ class AuditLogRegistrationClientTest {
     @Test
     void getRegisteredGuild_empty() {
 
-        ErrorEntity responseBody = ErrorEntity.builder().build();
+        ErrorEntity responseBody = new ErrorEntity(0, "", "", "", "");
 
         when(mockEngine.makeRequest(
                 eq(HttpMethod.GET),
@@ -134,7 +134,7 @@ class AuditLogRegistrationClientTest {
                 eq("/api/v1/log/audit/" + guildId),
                 any(HttpHeaders.class),
                 eq(Void.class)
-        )).thenReturn(Either.left(ErrorEntity.builder().build()));
+        )).thenReturn(Either.left(new ErrorEntity(0, "", "", "", "")));
 
         assertThat(client.deleteRegisteredGuild(guildId)).isFalse();
 

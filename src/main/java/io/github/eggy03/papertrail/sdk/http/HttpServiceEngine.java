@@ -3,9 +3,9 @@ package io.github.eggy03.papertrail.sdk.http;
 import io.github.eggy03.papertrail.sdk.entity.ErrorEntity;
 import io.github.eggy03.papertrail.sdk.exception.ApiBaseUrlException;
 import io.vavr.control.Either;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpClientErrorException;
@@ -14,6 +14,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import java.time.Instant;
+import java.util.Objects;
 
 /**
  * Utility class responsible for executing HTTP requests to the PaperTrail API.
@@ -22,16 +23,25 @@ import java.time.Instant;
  * Spring's {@link RestClient} and returns responses wrapped in Vavr's {@link Either}
  * </p>
  */
-@Slf4j
 public class HttpServiceEngine {
 
-    private final RestClient client;
+    private static final Logger log = LoggerFactory.getLogger(HttpServiceEngine.class);
+    private final @NonNull RestClient client;
 
-    public HttpServiceEngine(@NonNull String baseUrl) {
+    /**
+     * Initializes a {@link RestClient} with the given base URL.
+     * Extra forward slashes '/' are automatically removed from the URL during sanitization.
+     * @param baseUrl the URL of the API
+     */
+    public HttpServiceEngine(String baseUrl) {
+        
+        if (baseUrl == null)
+            throw new ApiBaseUrlException("Base URL cannot be null");
 
         if(baseUrl.trim().isEmpty())
-            throw new ApiBaseUrlException("Base URL is null or empty");
+            throw new ApiBaseUrlException("Base URL cannot be blank or empty");
 
+        //replace extra '/' with empty string
         this.client = RestClient.builder().baseUrl(baseUrl.replaceAll("/+$", "")).build();
     }
 
@@ -47,10 +57,15 @@ public class HttpServiceEngine {
      *         or a deserialized success response on success
      */
     public <S> Either<ErrorEntity, S> makeRequest (
-            @NotNull HttpMethod httpMethod,
-            @NotNull String path,
-            @NotNull HttpHeaders headers,
-            @NotNull Class<S> successResponseClass) {
+            @NonNull HttpMethod httpMethod,
+            @NonNull String path,
+            @NonNull HttpHeaders headers,
+            @NonNull Class<S> successResponseClass
+    ) {
+        Objects.requireNonNull(httpMethod, "httpMethod cannot be null");
+        Objects.requireNonNull(path, "path cannot be null");
+        Objects.requireNonNull(headers, "headers cannot be null");
+        Objects.requireNonNull(successResponseClass, "successResponseClass cannot be null");
 
         try {
             S body = client.method(httpMethod)
@@ -89,11 +104,17 @@ public class HttpServiceEngine {
      *         or a deserialized success response on success
      */
     public <S> Either<ErrorEntity, S> makeRequestWithBody (
-            @NotNull HttpMethod httpMethod,
-            @NotNull String path,
-            @NotNull HttpHeaders headers,
-            @NotNull Object requestBody,
-            @NotNull Class<S> successResponseClass) {
+            @NonNull HttpMethod httpMethod,
+            @NonNull String path,
+            @NonNull HttpHeaders headers,
+            @NonNull Object requestBody,
+            @NonNull Class<S> successResponseClass) {
+
+        Objects.requireNonNull(httpMethod, "httpMethod cannot be null");
+        Objects.requireNonNull(path, "path cannot be null");
+        Objects.requireNonNull(headers, "headers cannot be null");
+        Objects.requireNonNull(requestBody, "requestBody cannot be null");
+        Objects.requireNonNull(successResponseClass, "successResponseClass cannot be null");
 
         try {
             S body = client.method(httpMethod)
