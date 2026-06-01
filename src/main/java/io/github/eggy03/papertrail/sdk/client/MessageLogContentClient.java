@@ -29,7 +29,7 @@ public class MessageLogContentClient {
      * @throws ApiBaseUrlException if the base URL is {@code null} or empty
      */
     public MessageLogContentClient(@NonNull String baseUrl){
-        this.engine = new HttpServiceEngine(baseUrl);
+        this(new HttpServiceEngine(baseUrl));
     }
 
     /**

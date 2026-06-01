@@ -26,7 +26,7 @@ public class MessageLogRegistrationClient {
      * @throws ApiBaseUrlException if the base URL is {@code null} or empty
      */
     public MessageLogRegistrationClient(@NonNull String baseUrl){
-        this.engine = new HttpServiceEngine(baseUrl);
+        this(new HttpServiceEngine(baseUrl));
     }
 
     /**
