@@ -2,10 +2,9 @@ package io.github.eggy03.papertrail.sdk.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a registration entry for message logging within a Discord guild.
@@ -15,21 +14,17 @@ import org.jspecify.annotations.NonNull;
  * safe for use across threads.
  * </p>
  */
-@Getter
-@Builder(toBuilder = true)
-public class MessageLogRegistrationEntity {
+public final class MessageLogRegistrationEntity {
 
     /**
      * The unique ID of the Discord guild.
      */
-    @NotNull
-    private final String guildId;
+    private final @NonNull String guildId;
 
     /**
      * The unique ID of the Discord channel where message logs will be posted.
      */
-    @NotNull
-    private final String channelId;
+    private final @NonNull String channelId;
 
     /**
      * Creates a new {@code MessageLogRegistrationEntity}.
@@ -39,8 +34,23 @@ public class MessageLogRegistrationEntity {
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public MessageLogRegistrationEntity(@JsonProperty("guildId") @NonNull String guildId,
-                                        @JsonProperty("channelId") @NonNull String channelId) {
-        this.guildId = guildId;
-        this.channelId = channelId;
+                                        @JsonProperty("channelId") @NonNull String channelId
+    ) {
+        this.guildId = Objects.requireNonNull(guildId, "guildId cannot be null");
+        this.channelId = Objects.requireNonNull(channelId, "channelId cannot be null");
+    }
+
+    /**
+     * The unique ID of the Discord guild.
+     */
+    public @NonNull String getGuildId() {
+        return guildId;
+    }
+
+    /**
+     * The unique ID of the Discord channel where message logs will be posted.
+     */
+    public  @NonNull String getChannelId() {
+        return channelId;
     }
 }

@@ -71,7 +71,7 @@ class MessageLogContentClientTest {
                 any(HttpHeaders.class),
                 any(MessageLogContentEntity.class),
                 eq(MessageLogContentEntity.class)
-        )).thenReturn(Either.left(ErrorEntity.builder().build()));
+        )).thenReturn(Either.left(new ErrorEntity(0, "", "", "", "")));
 
         assertThat(client.logMessage(messageId, messageContent, authorId)).isFalse();
     }
@@ -99,7 +99,7 @@ class MessageLogContentClientTest {
                 eq("/api/v1/content/message/" + messageId),
                 any(HttpHeaders.class),
                 eq(MessageLogContentEntity.class)
-        )).thenReturn(Either.left(ErrorEntity.builder().build()));
+        )).thenReturn(Either.left(new ErrorEntity(0, "", "", "", "")));
 
         assertThat(client.retrieveMessage(messageId)).isEmpty();
     }
@@ -128,7 +128,7 @@ class MessageLogContentClientTest {
                 any(HttpHeaders.class),
                 any(MessageLogContentEntity.class),
                 eq(MessageLogContentEntity.class)
-        )).thenReturn(Either.left(ErrorEntity.builder().build()));
+        )).thenReturn(Either.left(new ErrorEntity(0, "", "", "", "")));
 
         assertThat(client.updateMessage(messageId, messageContent, authorId)).isFalse();
     }
@@ -154,7 +154,7 @@ class MessageLogContentClientTest {
                 eq("/api/v1/content/message/" + messageId),
                 any(HttpHeaders.class),
                 eq(Void.class)
-        )).thenReturn(Either.left(ErrorEntity.builder().build()));
+        )).thenReturn(Either.left(new ErrorEntity(0, "", "", "", "")));
 
         assertThat(client.deleteMessage(messageId)).isFalse();
     }

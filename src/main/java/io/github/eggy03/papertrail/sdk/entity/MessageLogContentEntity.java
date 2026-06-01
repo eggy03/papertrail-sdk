@@ -2,10 +2,9 @@ package io.github.eggy03.papertrail.sdk.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a simplified version of Discord's message object, stripped of all metadata except message and author ID.
@@ -13,27 +12,22 @@ import org.jspecify.annotations.NonNull;
  * Immutable and thread-safe
  * </p>
  */
-@Getter
-@Builder(toBuilder = true)
-public class MessageLogContentEntity {
+public final class MessageLogContentEntity {
 
     /**
      * The unique ID of the Discord message.
      */
-    @NotNull
-    private String messageId;
+    private final @NonNull String messageId;
 
     /**
      * The plain-text content of the message.
      */
-    @NotNull
-    private String messageContent;
+    private final @NonNull String messageContent;
 
     /**
      * The unique ID of the author of the message.
      */
-    @NotNull
-    private String authorId;
+    private final @NonNull String authorId;
 
     /**
      * Creates a new {@code MessageLogContentEntity}.
@@ -45,9 +39,31 @@ public class MessageLogContentEntity {
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public MessageLogContentEntity(@JsonProperty("messageId") @NonNull String messageId,
                                    @JsonProperty("messageContent") @NonNull String messageContent,
-                                   @JsonProperty("authorId") @NonNull String authorId) {
-        this.messageId = messageId;
-        this.messageContent = messageContent;
-        this.authorId = authorId;
+                                   @JsonProperty("authorId") @NonNull String authorId
+    ) {
+        this.messageId = Objects.requireNonNull(messageId, "messageId cannot be null");
+        this.messageContent = Objects.requireNonNull(messageContent, "messageContent cannot be null");
+        this.authorId = Objects.requireNonNull(authorId, "authorId cannot be null");
+    }
+
+    /**
+     * The unique ID of the Discord message.
+     */
+    public @NonNull String getMessageId() {
+        return messageId;
+    }
+
+    /**
+     * The plain-text content of the message.
+     */
+    public @NonNull String getMessageContent() {
+        return messageContent;
+    }
+
+    /**
+     * The unique ID of the author of the message.
+     */
+    public @NonNull String getAuthorId() {
+        return authorId;
     }
 }

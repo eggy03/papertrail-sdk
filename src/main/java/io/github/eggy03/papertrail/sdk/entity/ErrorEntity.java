@@ -2,17 +2,12 @@ package io.github.eggy03.papertrail.sdk.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a structured error response returned by the PaperTrail API.
  */
-@Getter
-@Builder(toBuilder = true)
-public class ErrorEntity {
+public final class ErrorEntity {
 
     /**
      * The HTTP status code associated with the error.
@@ -22,26 +17,22 @@ public class ErrorEntity {
     /**
      * A short error identifier or type, often the underlying exception class
      */
-    @NotNull
-    private final String error;
+    private final @NonNull String error;
 
     /**
      * A human-readable error message describing what went wrong.
      */
-    @NotNull
-    private final String message;
+    private final @NonNull String message;
 
     /**
      * The timestamp indicating when the error occurred.
      */
-    @NotNull
-    private final String timeStamp;
+    private final @NonNull String timeStamp;
 
     /**
      * The request path that caused the error.
      */
-    @NotNull
-    private final String path;
+    private final @NonNull String path;
 
     /**
      * Creates a new {@code ErrorEntity}.
@@ -64,5 +55,40 @@ public class ErrorEntity {
         this.message = message;
         this.timeStamp = timeStamp;
         this.path = path;
+    }
+
+    /**
+     * The HTTP status code associated with the error.
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * A short error identifier or type, often the underlying exception class
+     */
+    public @NonNull String getError() {
+        return error;
+    }
+
+    /**
+     * A human-readable error message describing what went wrong.
+     */
+    public @NonNull String getMessage() {
+        return message;
+    }
+
+    /**
+     * The timestamp indicating when the error occurred.
+     */
+    public @NonNull String getTimeStamp() {
+        return timeStamp;
+    }
+
+    /**
+     * The request path that caused the error.
+     */
+    public @NonNull String getPath() {
+        return path;
     }
 }
