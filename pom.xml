@@ -31,7 +31,8 @@
         <!-- dependencies version -->
         <spring.web.version>7.0.7</spring.web.version>
         <jackson.databind.version>3.1.1</jackson.databind.version>
-        <jackson.annotations.version>2.21</jackson.annotations.version>
+        <jackson.version>2.21.4</jackson.version>
+        <jackson.annotation.version>2.21</jackson.annotation.version>
         <vavr.version>1.0.1</vavr.version>
         <junit.jupiter.version>6.0.0</junit.jupiter.version>
         <mockito.core.version>5.20.0</mockito.core.version>
@@ -55,14 +56,15 @@
             <version>${vavr.version}</version>
         </dependency>
         <dependency>
-            <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.databind.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.annotations.version}</version>
+            <version>${jackson.annotation.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
